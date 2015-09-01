@@ -1,0 +1,18 @@
+#!/bin/sh
+
+output="$1"
+
+rm -rf output
+mkdir output
+
+uberjar=$(lein uberjar | cut -d " " -f 2 | grep standalone)
+if [ -z "$uberjar" ]; then
+  echo "Could not find uberjar"
+  exit 1
+fi
+mv $uberjar output
+
+m4 -Doutputjar=$(basename $uberjar) run > output/run
+chmod 755 output/run
+
+tar cf $output -C output . && rm -rf output

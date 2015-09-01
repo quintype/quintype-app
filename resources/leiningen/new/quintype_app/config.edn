@@ -1,0 +1,4 @@
+{:server {:env "dev"
+          :host "localhost"
+          :port 2001}
+ :nrepl  {:port 2101}}
