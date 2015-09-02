@@ -41,14 +41,10 @@
       params/wrap-params
       wrap-log-timing))
 
-(defn- parse-config [--config]
-  (-> --config
-      (or "./etc/dev/config.edn")
-      slurp
-      read-string))
-
 (defn set-config [--config]
   (->> --config
+       slurp
+       read-string
        parse-config
        (reset! config)))
 
@@ -59,7 +55,8 @@
                    :join? false}))
 
 
-(defn -main [task & {:strs [--config]}]
+(defn -main [task & {:strs [--config]
+                     :or   {--config "./etc/dev/config.edn"}}]
     (set-config --config)
     (start-nrepl (:nrepl @config))
     (server-start @config)
