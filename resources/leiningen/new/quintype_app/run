@@ -10,7 +10,7 @@ if [ -n "$JDK_PATH" ]; then
   PATH="$JDK_PATH/bin:$PATH"
 fi
 
-JVM_OPTS="$LOG4J_OPTS -Dfile.encoding=UTF8 -Xms256m -Xmx1g -Dsun.net.client.defaultConnectTimeout=120000 -Dsun.net.client.defaultReadTimeout=120000 -XX:+UseConcMarkSweepGC -XX:+UseParNewGC -XX:+CMSParallelRemarkEnabled -XX:MaxGCPauseMillis=5 -XX:+OptimizeStringConcat -XX:+UseCompressedOops -XX:+AggressiveOpts -XX:MaxInlineSize=100 -Xloggc:/var/log/{{sanitized}}/gc.log -verbose:gc -XX:+PrintGCDetails -XX:ErrorFile=/var/log/{{sanitized}}/jvm-fatal%p.log -Dhttps.protocols=SSLv3 -agentlib:jdwp=transport=dt_socket,server=y,suspend=n"
+JVM_OPTS="$LOG4J_OPTS -Dfile.encoding=UTF8 -Xms256m -Xmx1g -Dsun.net.client.defaultConnectTimeout=120000 -Dsun.net.client.defaultReadTimeout=120000 -XX:+UseConcMarkSweepGC -XX:+UseParNewGC -XX:+CMSParallelRemarkEnabled -XX:MaxGCPauseMillis=5 -XX:+OptimizeStringConcat -XX:+UseCompressedOops -XX:+AggressiveOpts -XX:MaxInlineSize=100 -Xloggc:/var/log/{{sanitized}}/gc.log -verbose:gc -XX:+PrintGCDetails -XX:ErrorFile=/var/log/{{sanitized}}/jvm-fatal%p.log"
 
 if [ -f "$JARFILE" ]; then
   exec java ${JVM_OPTS} -jar "$JARFILE" server "$@"
