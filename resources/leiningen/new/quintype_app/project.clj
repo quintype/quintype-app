@@ -7,6 +7,7 @@
                  [ring "1.4.0"]
                  [cider/cider-nrepl "0.9.1"]
                  [clj-log4j2 "0.1.0"]]
-  :main ^:skip-aot {{namespace}}.main
+  :main ^:skip-aot {{namespace}}.core
   :java-source-paths ["src"]
-  :profiles {:uberjar {:aot []}})
+  :profiles {:uberjar {:aot []
+                       :main ^:skip-aot {{namespace}}.main}})
