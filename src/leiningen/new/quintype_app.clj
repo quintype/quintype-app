@@ -28,7 +28,9 @@
              ["src/{{nested-dirs}}/main.java" (render "main.java" data)]
              ["src/{{nested-dirs}}/core.clj" (render "core.clj" data)]
              ["test/{{nested-dirs}}/core_test.clj" (render "core_test.clj" data)]
+
              ["resources/log4j2.xml" (render "log4j2.xml" data)]
+             ["test/quiet.xml" (render "quiet.xml" data)]
 
              ;; Things to help with CI and deploy
              ["run" (render "run" data) :executable true]

@@ -1,6 +1,7 @@
 #! /bin/sh
 
 JARFILE="$(cd "$(dirname "$0")" && pwd -P)/outputjar"
+JMX_PORT=2010
 
 if [ -n "$LOG4J_CONF" ]; then
   LOG4J_OPTS="-Dlog4j.configurationFile=file:${LOG4J_CONF}"
@@ -10,7 +11,8 @@ if [ -n "$JDK_PATH" ]; then
   PATH="$JDK_PATH/bin:$PATH"
 fi
 
-JVM_OPTS="$LOG4J_OPTS -Dfile.encoding=UTF8 -Xms256m -Xmx1g -Dsun.net.client.defaultConnectTimeout=120000 -Dsun.net.client.defaultReadTimeout=120000 -XX:+UseConcMarkSweepGC -XX:+UseParNewGC -XX:+CMSParallelRemarkEnabled -XX:MaxGCPauseMillis=5 -XX:+OptimizeStringConcat -XX:+UseCompressedOops -XX:+AggressiveOpts -XX:MaxInlineSize=100 -Xloggc:/var/log/{{sanitized}}/gc.log -verbose:gc -XX:+PrintGCDetails -XX:ErrorFile=/var/log/{{sanitized}}/jvm-fatal%p.log"
+JMX_OPTS="-Dcom.sun.management.jmxremote -Dcom.sun.management.jmxremote.port=${JMX_PORT} -Dcom.sun.management.jmxremote.local.only=false -Dcom.sun.management.jmxremote.authenticate=false -Dcom.sun.management.jmxremote.ssl=false"
+JVM_OPTS="$LOG4J_OPTS -Dfile.encoding=UTF8 -Xms256m -Xmx1g -Dsun.net.client.defaultConnectTimeout=120000 -Dsun.net.client.defaultReadTimeout=120000 -XX:+UseConcMarkSweepGC -XX:+UseParNewGC -XX:+CMSParallelRemarkEnabled -XX:MaxGCPauseMillis=5 -XX:+OptimizeStringConcat -XX:+UseCompressedOops -XX:+AggressiveOpts -XX:MaxInlineSize=100 -Xloggc:/var/log/quest/gc.log -verbose:gc -XX:+PrintGCDetails -XX:ErrorFile=/var/log/quest/jvm-fatal%p.log ${JMX_OPTS}"
 
 if [ -f "$JARFILE" ]; then
   exec java ${JVM_OPTS} -jar "$JARFILE" server "$@"
