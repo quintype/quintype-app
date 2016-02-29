@@ -45,7 +45,6 @@
   (->> --config
        slurp
        read-string
-       parse-config
        (reset! config)))
 
 

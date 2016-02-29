@@ -1,4 +1,4 @@
-(defproject quintype-app/lein-template "0.1.6"
+(defproject quintype-app/lein-template "0.1.7"
   :description "Lein template to quickly build an app in Quintype"
   :url "http://github.com/quintype/quintype-app"
   :license {:name "Eclipse Public License"
